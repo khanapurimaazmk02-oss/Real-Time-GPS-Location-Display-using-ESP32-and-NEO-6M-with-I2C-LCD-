@@ -1,0 +1,57 @@
+#include <TinyGPS++.h>
+#include <HardwareSerial.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+TinyGPSPlus gps;
+HardwareSerial gpsSerial(1);
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup()
+{
+Serial.begin(115200);
+
+gpsSerial.begin(9600, SERIAL_8N1, 16, 17);
+
+Wire.begin(21,22);
+lcd.init();
+lcd.backlight();
+
+lcd.setCursor(0,0);
+lcd.print("GPS Starting...");
+delay(2000);
+}
+
+void loop()
+{
+while (gpsSerial.available() > 0)
+{
+gps.encode(gpsSerial.read());
+
+if (gps.location.isUpdated())  
+{  
+  float lat = gps.location.lat();  
+  float lng = gps.location.lng();  
+
+  Serial.print("Latitude: ");  
+  Serial.println(lat, 6);  
+
+  Serial.print("Longitude: ");  
+  Serial.println(lng, 6);  
+
+  lcd.clear();  
+  lcd.setCursor(0,0);  
+  lcd.print("Lat:");  
+  lcd.print(lat,4);  
+
+  lcd.setCursor(0,1);  
+  lcd.print("Lng:");  
+  lcd.print(lng,4);  
+
+  delay(2000);  
+}
+
+}
+}
+Give me title for this
