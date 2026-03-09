@@ -56,10 +56,6 @@ Install the following libraries from the Arduino Library Manager:
 
 
 ---
-## Circuit Diagram
-![Circuit Diagram](circuit_diagram.png)
-
----
 
 ## 📊 Output Example
 
