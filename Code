@@ -54,4 +54,3 @@ if (gps.location.isUpdated())
 
 }
 }
-Give me title for this
